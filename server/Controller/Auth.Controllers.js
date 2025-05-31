@@ -14,7 +14,7 @@ const GenrateAcessAndRefreshToken= async (userid)=>{
      await  user.save({validateBeforeSave:false})
      return {accessToken,refreshToken}
    } catch (error) {
-    throw new ApiError(401,E`rror while generating tokens ${error.message}`)
+    throw new ApiError(401,`Error while generating tokens ${error.message}`)
    }
 }
 
@@ -33,7 +33,8 @@ const signUpUser= asyncHandler(async(req,res)=>{
     if(existedUser){
         throw new ApiError(400,"User already existed")
     }
-    const  salt = await bcrypt.getSalt(10);
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
     const hashPassword = await bcrypt.hash(password,salt);
     
     const newUser = await User.create({
@@ -51,7 +52,6 @@ const signUpUser= asyncHandler(async(req,res)=>{
 
 const loginUser = asyncHandler(async (req,res)=>{
       const {email,password,username} = req.body;
-
     if(!username && !email){
         throw new ApiError(410,"all feilds are required")
     }
@@ -88,10 +88,6 @@ const logoutUser = asyncHandler(async (req,res)=>{
         new: true
        }
     )
-      const options = {
-    httpOnly : true,
-    secure : true
-  }
   return res.status(200)
   .clearCookie("accessToken",options)
   .clearCookie("refreshToken",options)

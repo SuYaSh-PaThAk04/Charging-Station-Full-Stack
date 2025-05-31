@@ -2,15 +2,21 @@ import { ApiError } from "../Utils/ApiError.js";
 import { asyncHandler } from "../Utils/asyncHandller.js";
 import jwt from "jsonwebtoken";
 import { User } from "../Models/Users.Models.js";
-
 const VerifyJWT = asyncHandler(async (req, _, next) => {
     try {
-        const token = (req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")).trim();
+        let token = req.cookies?.accessToken;
+
+        if (!token) {
+            const authHeader = req.header("Authorization");
+            if (authHeader && authHeader.startsWith("Bearer ")) {
+                token = authHeader.replace("Bearer ", "").trim();
+            }
+        }
+
         if (!token) {
             throw new ApiError(401, "Unauthorized request: No token provided");
         }
 
-  
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
 
@@ -29,4 +35,5 @@ const VerifyJWT = asyncHandler(async (req, _, next) => {
     }
 });
 
-export { VerifyJWT };
+
+export default VerifyJWT ;

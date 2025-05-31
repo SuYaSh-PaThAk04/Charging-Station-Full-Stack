@@ -1,8 +1,9 @@
 import { app } from "./app.js";
-import dotenv from "dotenv"
+
 import { connectDB } from "./DB/Db.js";
 
-dotenv.config()
+import { configDotenv } from 'dotenv';
+configDotenv();
 connectDB()
 .then(()=>{
     app.listen(process.env.PORT || 8000, ()=>{

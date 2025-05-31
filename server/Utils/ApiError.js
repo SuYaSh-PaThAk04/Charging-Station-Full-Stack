@@ -5,6 +5,7 @@ export class ApiError extends Error{
           errors=[],
           stack,
     ){
+        super(message),
         this.statusCode=statusCode,
         this.data = null
         this.message=message,
