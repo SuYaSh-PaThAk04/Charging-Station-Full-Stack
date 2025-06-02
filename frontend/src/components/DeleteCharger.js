@@ -2,7 +2,7 @@ const handleDelete = async (id) => {
   const token = localStorage.getItem("token");
 
   try {
-    const res = await fetch(`http://localhost:4000/api/chargers/${id}`, {
+    const res = await fetch(`https://charging-station-backend-o9ky.onrender.com/api/chargers/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
