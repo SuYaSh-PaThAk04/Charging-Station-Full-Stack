@@ -32,7 +32,7 @@ const fetchChargers = async () => {
 
   try {
     const token = localStorage.getItem("token"); // assuming token is stored on login
-    const res = await axios.get("http://localhost:4000/api/chargers/all", {
+    const res = await axios.get("https://charging-station-backend-o9ky.onrender.com/api/chargers/all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
