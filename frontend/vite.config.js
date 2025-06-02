@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
    server: {
   proxy: {
-    '/api': 'http://localhost:4000'
+    '/api': 'https://charging-station-backend-o9ky.onrender.com'
   }
 },
   plugins: [react(),tailwindcss()],
