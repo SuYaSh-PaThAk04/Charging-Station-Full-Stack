@@ -41,7 +41,7 @@ export function CreateCharger({ onClose }) {
     };
 
     try {
-      const res = await fetch("http://localhost:4000/api/chargers/create", {
+      const res = await fetch("https://charging-station-backend-o9ky.onrender.com/api/chargers/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
