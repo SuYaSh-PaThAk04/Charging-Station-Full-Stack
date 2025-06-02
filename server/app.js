@@ -5,7 +5,7 @@ import { router } from "./Routes/Auth.routes.js";
 import routerC from "./Routes/Charger.routes.js";
 const app = express()
 
-app.use(cors({ origin:*, credentials: true }));
+app.use(cors({ origin: CORS_ORIGIN, credentials: true }));
 
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true, limit: "20kb" }));
