@@ -12,12 +12,31 @@ export const getAllChargers = async (req, res) => {
 
 export const createCharger = async (req, res) => {
   try {
+    const { name, latitude, longitude,location, powerOutput, status, connectorType } = req.body;
 
-    const charger = new Charger(req.body);
-    await charger.save();
-    res.status(201).json(charger);
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to create charger' });
+    if (!name || !latitude || !longitude) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+const newCharger = new Charger({
+  name,
+  latitude: parseFloat(latitude),
+  longitude: parseFloat(longitude),
+  powerOutput,
+  status,
+  connectorType,
+  location: {
+    type: "Point",
+    coordinates: [parseFloat(longitude), parseFloat(latitude)],
+  },
+  
+});
+    await newCharger.save();
+
+    res.status(201).json({ message: "Charger created", charger: newCharger });
+  } catch (err) {
+    console.error("Error creating charger:", err);
+    res.status(500).json({ error: "Failed to create charger" });
   }
 };
 

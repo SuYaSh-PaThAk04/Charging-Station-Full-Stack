@@ -10,7 +10,7 @@ import VerifyJWT from '../Middlewares/verifyJWT.middleware.js';
 const routerC = express.Router();
 
 routerC.get('/all', VerifyJWT, getAllChargers);
-routerC.post('/', VerifyJWT, createCharger);
+routerC.post('/create', createCharger);
 routerC.put('/update/:id', VerifyJWT, updateCharger);
 routerC.delete('/:id', VerifyJWT, deleteCharger);
 
