@@ -5,7 +5,7 @@ import { router } from "./Routes/Auth.routes.js";
 import routerC from "./Routes/Charger.routes.js";
 const app = express()
 
-app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
+app.use(cors({ origin: https://charging-station-full-stack.vercel.app/, credentials: true }));
 
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true, limit: "20kb" }));
