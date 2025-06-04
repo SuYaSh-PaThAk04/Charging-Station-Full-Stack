@@ -6,10 +6,20 @@ import routerC from "./Routes/Charger.routes.js";
 
 const app = express();
 
+const allowedOrigins = [
+  "https://charging-station-full-stack-fw8du0uc8-suyash-pathak04s-projects.vercel.app",
+  "https://charging-station-full-stack.vercel.app"
+];
+
 app.use(cors({
-  origin: 'https://charging-station-full-stack.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true 
 }));
 
 app.options('*', cors({
