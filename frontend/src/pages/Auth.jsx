@@ -45,6 +45,7 @@ export default function RegisterPage() {
               value={username}
               onChange={(e) => setName(e.target.value)}
               className="mt-1"
+              autocomplete="username"
             />
           </div>
 
@@ -57,6 +58,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1"
+              autocomplete="email"
             />
           </div>
 
@@ -69,6 +71,7 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1"
+              autocomplete="password"
             />
           </div>
 
