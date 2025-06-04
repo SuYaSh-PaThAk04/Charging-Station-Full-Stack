@@ -11,9 +11,10 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [username, setName] = useState("");
   const [error, setError] = useState("");
-
+const [loading, setLoading] = useState(false);
   const handleRegister = async () => {
     try {
+      setLoading(true);
       const res = await fetch("https://charging-station-backend-o9ky.onrender.com/api/users/signUp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,7 +25,9 @@ export default function RegisterPage() {
       navigate("/login");
     } catch (err) {
       setError(err.message);
-    }
+    }finally {
+    setLoading(false); 
+  }
   };
 
   return (
