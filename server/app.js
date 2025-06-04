@@ -33,10 +33,10 @@ app.use(express.urlencoded({ extended: true, limit: "20kb" }));
 app.use(cookieParser());
 
 app.use('/api/users', router);
-app.use('/api/chargers', routerC);
+//app.use('/api/chargers', routerC);
 
-{/*app.get('/api/users',(req,res)=>[
+{app.get('/api/users',(req,res)=>[
     res.send("Welcome to api ")
-]) */}
+]) }
 export { app };
 
