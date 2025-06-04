@@ -18,12 +18,12 @@ origin: (origin, callback) => {
   } else {
     callback(new Error("Not allowed by CORS"));
   }
-}
+},
   credentials: true 
 }));
 
 app.options(process.env.CORS_ORIGIN, cors({
-  origin: 'https://charging-station-full-stack.vercel.app',
+  origin: process.env.CORS_ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
