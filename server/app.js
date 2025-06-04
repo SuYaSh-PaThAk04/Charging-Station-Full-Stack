@@ -22,7 +22,7 @@ app.use(cors({
   credentials: true 
 }));
 
-app.options('*', cors({
+//app.options('*', cors({
   origin: 'https://charging-station-full-stack.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
@@ -32,7 +32,7 @@ app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true, limit: "20kb" }));
 app.use(cookieParser());
 
-//app.use('/api/users', router);
+app.use('/api/users', router);
 app.use('/api/chargers', routerC);
 
 {app.get('/api/users',(req,res)=>[
