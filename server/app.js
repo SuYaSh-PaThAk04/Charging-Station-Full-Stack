@@ -22,7 +22,7 @@ app.use(cors({
   credentials: true 
 }));
 
-app.options('/*', cors({
+app.options(process.env.CORS_ORIGIN, cors({
   origin: 'https://charging-station-full-stack.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
