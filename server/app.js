@@ -35,9 +35,8 @@ app.use(cookieParser());
 app.use('/api/users', router);
 app.use('/api/chargers', routerC);
 
-app.get('/api/users', (req, res) => {
-  res.send("Welcome to API");
-});
-
+{/*app.get('/api/users',(req,res)=>[
+    res.send("Welcome to api ")
+]) */}
 export { app };
 
