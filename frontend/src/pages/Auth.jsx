@@ -11,10 +11,12 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [username, setName] = useState("");
   const [error, setError] = useState("");
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handleRegister = async () => {
     try {
       setLoading(true);
+      setError(""); // Clear previous error
       const res = await fetch("https://charging-station-backend-o9ky.onrender.com/api/users/signUp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,9 +27,9 @@ const [loading, setLoading] = useState(false);
       navigate("/login");
     } catch (err) {
       setError(err.message);
-    }finally {
-    setLoading(false); 
-  }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +50,7 @@ const [loading, setLoading] = useState(false);
               value={username}
               onChange={(e) => setName(e.target.value)}
               className="mt-1"
-              autocomplete="username"
+              autoComplete="username"
             />
           </div>
 
@@ -61,7 +63,7 @@ const [loading, setLoading] = useState(false);
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1"
-              autocomplete="email"
+              autoComplete="email"
             />
           </div>
 
@@ -74,7 +76,7 @@ const [loading, setLoading] = useState(false);
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1"
-              autocomplete="password"
+              autoComplete="new-password"
             />
           </div>
 
@@ -83,8 +85,16 @@ const [loading, setLoading] = useState(false);
           <Button
             onClick={handleRegister}
             className="w-full bg-green-600 hover:bg-green-700 text-white font-medium"
+            disabled={loading}
           >
-            Register
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Registering...
+              </div>
+            ) : (
+              "Register"
+            )}
           </Button>
 
           <div className="text-center mt-4">
@@ -102,3 +112,4 @@ const [loading, setLoading] = useState(false);
     </div>
   );
 }
+
