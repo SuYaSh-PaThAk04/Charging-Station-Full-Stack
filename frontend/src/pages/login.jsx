@@ -10,25 +10,29 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [Loading,setLoading]= useState("false")
+  const [loading, setLoading] = useState(false); 
+
   const handleLogin = async () => {
     try {
-       setLoading(true);
+      setLoading(true);
+      setError(""); 
       const res = await fetch("https://charging-station-backend-o9ky.onrender.com/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Login failed");
+
       localStorage.setItem("token", data.data.accessToken);
       localStorage.setItem("refreshToken", data.data.refreshToken);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false); 
     }
-    finally{
-       setLoading(false);
   };
 
   return (
@@ -49,6 +53,7 @@ export function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1"
+              autoComplete="email"
             />
           </div>
 
@@ -61,6 +66,7 @@ export function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1"
+              autoComplete="current-password"
             />
           </div>
 
@@ -69,8 +75,16 @@ export function LoginPage() {
           <Button
             onClick={handleLogin}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            disabled={loading}
           >
-            Login
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Logging in...
+              </div>
+            ) : (
+              "Login"
+            )}
           </Button>
 
           <div className="text-center mt-4">
